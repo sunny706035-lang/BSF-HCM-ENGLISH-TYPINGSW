@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="midnight">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Typing Software Made By Acc</title>
+    <meta name="description" content="Next-generation fluid typography app with premium glassmorphism architecture.">
+    <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+    <!-- Canvas for Generated Aurora Particles -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="cursor-glow" id="cursor-glow"></div>
+
+    <!-- Sticky Glass Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="brand-logo">✧</span>
+            <span class="brand-text">MADE BY ACC</span>
+        </div>
+        <div class="nav-links">
+            <button class="nav-item active" data-target="home-section">Home</button>
+            <button class="nav-item" data-target="practice-section">Practice</button>
+            <button class="nav-item" data-target="leaderboard-section">Leaderboard</button>
+            <button class="nav-item" data-target="profile-section">Profile</button>
+            <button class="nav-item" data-target="settings-section">Settings</button>
+        </div>
+        <div class="nav-actions">
+            <button id="theme-toggle-btn" class="icon-btn" title="Switch Theme">🎨</button>
+            <button id="quick-login-btn" class="btn-primary">Connect with us</button>
+        </div>
+    </nav>
+
+    <!-- Global Layout Container -->
+    <main class="main-container">
+        
+        <!-- SECTION 1: HOME (Dashboard View) -->
+        <section id="home-section" class="app-page active">
+            <div class="hero-block">
+                <h1 class="animate-text">GROW WITH ACC</h1>
+                <p class="hero-subtitle">हमारी इस टाइपिंग वेबसाइट का मुख्य उद्देश्य प्रत्येक व्यक्ति को तेज़, सटीक और प्रभावी टाइपिंग सीखने का सर्वोत्तम अनुभव प्रदान करना है। आज के डिजिटल युग में टाइपिंग केवल एक कौशल नहीं, बल्कि शिक्षा, प्रतियोगी परीक्षाओं, सरकारी नौकरियों, निजी क्षेत्र और दैनिक कार्यों के लिए एक महत्वपूर्ण आवश्यकता बन चुकी है। इसी आवश्यकता को ध्यान में रखते हुए हमने यह आधुनिक टाइपिंग प्लेटफ़ॉर्म तैयार किया है।</p>
+                
+                <!-- Continuous Live Multi-Clock -->
+                <div class="live-clock-card" id="clock-card">
+                    <div class="clock-greeting" id="clock-greeting">Good Afternoon</div>
+                    <div class="clock-time" id="clock-display">00:00</div>
+                    
+                </div>
+
+                <div class="action-row">
+                    <button class="btn-glow" onclick="switchPage('practice-section')">Start Typing</button>
+                </div>
+            </div>
+
+            <!-- Stats Showcase -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-label">Global Operators</span>
+                    <span class="stat-valueCounter" data-target="142857">142,857</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Average Velocity</span>
+                    <span class="stat-valueCounter" data-target="74">74 WPM</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Peak Accuracy</span>
+                    <span class="stat-valueCounter" data-target="99">99.4%</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: PRACTICE (Dual Panel Layout based on Workspace Blueprint) -->
+        <section id="practice-section" class="app-page">
+            <!-- Top Mode Selectors -->
+            <div class="control-strip">
+                <div class="control-group">
+                    <label>Choose Your Paragraph</label>
+                    <select id="text-category">
+                              
+                      <!-- Yeh bilkul is tarah hona chahiye (value="quotes" lowercase me) -->
+                        <option value="quotes">Quotes</option>
+                        <option value="hindi">Hindi (Transliterated)</option>
+                        <option value="Simple">Simple</option>
+
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>Interval</label>
+                    <div class="timer-chips" id="timer-chips">
+                        <button class="chip active" data-time="15">15s</button>
+                        <button class="chip" data-time="30">30s</button>
+                        <button class="chip" data-time="60">60s</button>
+                        <button class="chip" data-time="custom">Custom</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Status HUD -->
+            <div class="hud-display">
+                <div class="hud-metric"><span class="hud-val" id="hud-wpm">0</span><span class="hud-lbl">WPM</span></div>
+                <div class="hud-metric"><span class="hud-val" id="hud-acc">100%</span><span class="hud-lbl">ACC</span></div>
+                <div class="hud-metric"><span class="hud-val" id="hud-timer">--</span><span class="hud-lbl">TIME</span></div>
+            </div>
+
+            <!-- Dynamic Workspace Layout Matrix -->
+            <div class="workspace-grid">
+                <!-- Left Panel: Text Display Engine -->
+                <div class="panel-left card-glass">
+                    <div class="panel-header">Typing Matter</div>
+                    <div class="text-display-scroller" id="text-stream-target">
+                        <!-- Words injected via JavaScript engine -->
+                    </div>
+                </div>
+
+                <!-- Right Panel: Interactive Capture Engine -->
+                <div class="panel-right card-glass">
+                    <div class="panel-header">Input Terminal</div>
+                    <div class="input-wrapper">
+                        <textarea id="typing-input-terminal" placeholder="Type Here . . . . . " autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
+                        <div class="focus-overlay">Click To Type</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br>
+            <!-- Workspace ke theek niche dynamic results pane -->
+            <div class="card-glass persistent-results-board" id="live-results-board">
+                <div class="panel-header">Performance Terminal Record</div>
+                <div class="results-layout-row">
+                    <div class="result-box"><span id="res-wpm">--</span><label>Speed (WPM)</label></div>
+                    <div class="result-box"><span id="res-acc">--</span><label>Accuracy</label></div>
+                    <div class="result-box"><span id="res-chars">--</span><label>Correct Chars</label></div>
+                    <div class="result-box"><span id="res-errors">--</span><label>Mistakes</label></div>
+                </div>
+            </div>
+
+
+
+        <!-- SECTION 3: LEADERBOARD -->
+        <section id="leaderboard-section" class="app-page">
+            <div class="card-glass content-block">
+                <h2>Global Top Arrays</h2>
+                <div class="leaderboard-wrapper">
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Operator</th>
+                                <th>Speed</th>
+                                <th>Accuracy</th>
+                                <th>Date Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-rows">
+                            <!-- Dynamic Rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: PROFILE -->
+        <section id="profile-section" class="app-page">
+            <div class="profile-grid">
+                <div class="card-glass profile-meta-card">
+                    <div class="avatar-glow">🪐</div>
+                    <h3 id="prof-name">Guest Operator</h3>
+                    <p id="prof-rank">Rank: Initiate #001</p>
+                </div>
+                <div class="card-glass profile-charts-card">
+                    <h3>Performance Progress Velocity</h3>
+                    <div class="mock-chart-container" id="chart-viewport">
+                        <!-- Programmatic rendering vector shapes -->
+                        <svg class="svg-chart" viewBox="0 0 500 200" id="live-svg-graph">
+                            <path d="M0,150 Q75,120 150,130 T300,70 T450,40" fill="none" stroke="var(--accent-glow)" stroke-width="3"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: SETTINGS -->
+        <section id="settings-section" class="app-page">
+            <div class="card-glass content-block settings-form">
+                <h2>System Configuration Parameters</h2>
+                <div class="setting-row">
+                    <label>Acoustic Feedback Model</label>
+                    <select id="setting-sound">
+                        <option value="mechanical">Mechanical Switch MX</option>
+                        <option value="silent">Membrane Smooth</option>
+                        <option value="gaming">Tactile Click</option>
+                        <option value="off">Mute Sound Signature</option>
+                    </select>
+                </div>
+                <div class="setting-row">
+                    <label>Typography Font Spec</label>
+                    <select id="setting-font">
+                        <option value="mono">'JetBrains Mono', monospace</option>
+                        <option value="sans">'Plus Jakarta Sans', sans-serif</option>
+                    </select>
+                </div>
+                <div class="setting-row">
+                    <button class="btn-danger" id="btn-reset-storage">Purge Data Storage</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Celebration/Particle Container Elements -->
+    <div class="celebration-layer" id="celebration-canvas"></div>
+    <div class="toast-system" id="toast-container"></div>
+    <script src="script.js"></script>
+</body>
+</html>
