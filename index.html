@@ -6,6 +6,7 @@
     <title>A Typing Software Made By Acc</title>
     <meta name="description" content="Next-generation fluid typography app with premium glassmorphism architecture.">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="learntyping.css">
   
 </head>
 <body>
@@ -24,6 +25,7 @@
             <button class="nav-item" data-target="practice-section">Practice</button>
             <button class="nav-item" data-target="leaderboard-section">Leaderboard</button>
             <button class="nav-item" data-target="profile-section">Profile</button>
+            <button class="nav-item" data-target="learn-section">Learn Typing</button>
             <button class="nav-item" data-target="settings-section">Settings</button>
         </div>
         <div class="nav-actions">
@@ -88,11 +90,11 @@
                 <div class="control-group">
                     <label>Interval</label>
                     <div class="timer-chips" id="timer-chips">
-                        <button class="chip active" data-time="15">15s</button>
-                        <button class="chip" data-time="30">30s</button>
-                        <button class="chip" data-time="60">60s</button>
-                        <button class="chip" data-time="custom">Custom</button>
-                    </div>
+                     <button class="chip active" data-time="60">1 Min</button>
+                     <button class="chip" data-time="300">5 Min</button>
+                     <button class="chip" data-time="600">10 Min</button>
+                     <button class="chip" data-time="custom">Custom</button>
+                </div>
                 </div>
             </div>
 
@@ -179,8 +181,60 @@
                 </div>
             </div>
         </section>
+        <!-- SECTION 5 : LEARN TYPING -->
+         <section id="learn-section" class="app-page">
+    <div class="card-glass learn-workspace">
+        <!-- 1. Typing Character Display Box -->
+        <div class="learn-display-panel">
+            <div class="learn-char-target" id="learn-char-target">A</div>
+            <div class="learn-word-stream" id="learn-word-stream">asdf jkl; asdf jkl;</div>
+            <input type="text" id="learn-hidden-input" autocomplete="off" autocapitalize="off" spellcheck="false">
+            <div class="learn-focus-hint" id="learn-focus-hint">Click Here to Start Practice</div>
+        </div>
 
-        <!-- SECTION 5: SETTINGS -->
+        <!-- 2. Finger Indicator Circles (5 Left + 5 Right) -->
+        <div class="fingers-indicator-bar">
+            <!-- Left Hand 5 Circles -->
+            <div class="hand-dots left-dots">
+                <div class="finger-dot" id="f-L5" title="Left Little"></div>
+                <div class="finger-dot" id="f-L4" title="Left Ring"></div>
+                <div class="finger-dot" id="f-L3" title="Left Middle"></div>
+                <div class="finger-dot" id="f-L2" title="Left Index"></div>
+                <div class="finger-dot" id="f-L1" title="Left Thumb"></div>
+            </div>
+
+            <!-- Right Hand 5 Circles -->
+            <div class="hand-dots right-dots">
+                <div class="finger-dot" id="f-R1" title="Right Thumb"></div>
+                <div class="finger-dot" id="f-R2" title="Right Index"></div>
+                <div class="finger-dot" id="f-R3" title="Right Middle"></div>
+                <div class="finger-dot" id="f-R4" title="Right Ring"></div>
+                <div class="finger-dot" id="f-R5" title="Right Little"></div>
+            </div>
+        </div>
+
+        <!-- 3. Centered Virtual Keyboard Area -->
+        <div class="learn-stage-grid">
+            <div class="virtual-keyboard" id="virtual-keyboard">
+                <div class="kb-row">
+                    <span class="key" data-key="q">Q</span><span class="key" data-key="w">W</span><span class="key" data-key="e">E</span><span class="key" data-key="r">R</span><span class="key" data-key="t">T</span><span class="key" data-key="y">Y</span><span class="key" data-key="u">U</span><span class="key" data-key="i">I</span><span class="key" data-key="o">O</span><span class="key" data-key="p">P</span>
+                </div>
+                <div class="kb-row">
+                    <span class="key" data-key="a">A</span><span class="key" data-key="s">S</span><span class="key" data-key="d">D</span><span class="key" data-key="f">F</span><span class="key" data-key="g">G</span><span class="key" data-key="h">H</span><span class="key" data-key="j">J</span><span class="key" data-key="k">K</span><span class="key" data-key="l">L</span><span class="key" data-key=";">;</span>
+                </div>
+                <div class="kb-row">
+                    <span class="key" data-key="z">Z</span><span class="key" data-key="x">X</span><span class="key" data-key="c">C</span><span class="key" data-key="v">V</span><span class="key" data-key="b">B</span><span class="key" data-key="n">N</span><span class="key" data-key="m">M</span><span class="key" data-key=",">,</span><span class="key" data-key=".">.</span>
+                </div>
+                <div class="kb-row">
+                    <span class="key key-space" data-key=" ">SPACE</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+        <!-- SECTION 6: SETTINGS -->
         <section id="settings-section" class="app-page">
             <div class="card-glass content-block settings-form">
                 <h2>System Configuration Parameters</h2>
@@ -210,6 +264,8 @@
     <!-- Celebration/Particle Container Elements -->
     <div class="celebration-layer" id="celebration-canvas"></div>
     <div class="toast-system" id="toast-container"></div>
+
     <script src="script.js"></script>
+    <script src="Learntyping.js"></script>
 </body>
 </html>

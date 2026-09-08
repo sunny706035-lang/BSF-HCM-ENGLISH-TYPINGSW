@@ -51,8 +51,8 @@ const TEXT_DATABASE = {
 // Main State Variable Configuration Matrix
 let state = {
     activeCategory: 'quotes',
-    targetDuration: 15,
-    timerRemaining: 15,
+    targetDuration: 60,       // 👈 15 की जगह 60 करें (डिफ़ॉल्ट 1 मिनट)
+    timerRemaining: 60,       // 👈 15 की जगह 60 करें
     isExecuting: false,
     textSourceString: "",
     indexPointer: 0,
@@ -63,6 +63,8 @@ let state = {
     activeTheme: 'midnight',
     metricsHistory: []
 };
+
+
 
 // Web Audio API Audio System Synthesizer Engine
 const AudioNodeEngine = {
@@ -233,6 +235,7 @@ function setupTypingEngine() {
                 state.targetDuration = parseInt(timeVal);
             }
             abortSessionCycle();
+            loadParagraphTrack();
         });
     });
 
@@ -242,16 +245,41 @@ function setupTypingEngine() {
         }
         evaluateTerminalInput(e.target.value);
     });
+
+
+    // Input Terminal security & strict typing rules
+targetInput.addEventListener('keydown', (e) => {
+    // Arrow keys (Left, Right, Up, Down), Home, End को ब्लॉक करें ताकि बीच में कर्सर न ले जा सके
+    if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown'].includes(e.key)) {
+        e.preventDefault();
+    }
+});
+
+// Cut, Copy aur Paste को पूरी तरह ब्लॉक करें
+targetInput.addEventListener('paste', (e) => e.preventDefault());
+targetInput.addEventListener('copy', (e) => e.preventDefault());
+targetInput.addEventListener('cut', (e) => e.preventDefault());
+
+// माउस से क्लिक करके कर्सर को बीच में सेट करने से रोकें (कर्सर हमेशा टेक्स्ट के अंत में रहेगा)
+targetInput.addEventListener('mouseup', () => {
+    targetInput.selectionStart = targetInput.value.length;
+    targetInput.selectionEnd = targetInput.value.length;
+});
 }
 
 function loadParagraphTrack() {
-    const dynamicArray = TEXT_DATABASE[state.activeCategory] || TEXT_DATABASE['technology'];
+    const dynamicArray = TEXT_DATABASE[state.activeCategory] || TEXT_DATABASE['quotes'] || [];
+    if (!dynamicArray || dynamicArray.length === 0) return;
+    
     const selectedString = dynamicArray[Math.floor(Math.random() * dynamicArray.length)];
     state.textSourceString = selectedString;
     state.indexPointer = 0;
     
     const container = document.getElementById('text-stream-target');
     container.innerHTML = "";
+    
+    // 🔥 FIX 1: स्क्रॉलर को एकदम शुरुआत (Top) पर रीसेट करें
+    container.scrollTop = 0;
 
     // Fragment tokenized rendering to limit continuous DOM access overhead
     const fragment = document.createDocumentFragment();
@@ -283,7 +311,11 @@ function loadParagraphTrack() {
     
     // Reset structural layout indicators
     document.getElementById('hud-timer').textContent = state.targetDuration;
-    document.getElementById('typing-input-terminal').value = "";
+    const targetInput = document.getElementById('typing-input-terminal');
+    if (targetInput) {
+        targetInput.value = "";
+        targetInput.disabled = false;
+    }
 }
 
 function markCurrentPointer() {
@@ -615,3 +647,5 @@ function showToast(msg) {
         ], { duration: 300 }).onfinish = () => toast.remove();
     }, 3500);
 }
+
+
